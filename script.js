@@ -24,3 +24,14 @@ class Raven {
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 }
+
+const raven = new Raven();
+
+function animate(timestamp){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    raven.update();
+    raven.draw();
+    requestAnimationFrame(animate);
+};
+
+animate();
