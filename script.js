@@ -18,10 +18,12 @@ class Raven {
         this.y = Math.random() * (canvas.height - this.height);
         this.directionX = Math.random() * 5 + 3;
         this.directionY = Math.random() * 5 - 2.5;
+        this.markedForDeletion = false;
     };
 
     update(){
         this.x -= this.directionX;
+        if(this.x < 0 - this.width) this.markedForDeletion = true;
     };
 
     draw(){
@@ -41,6 +43,7 @@ function animate(timestamp){
 
     [...ravens].forEach(object => object.update());
     [...ravens].forEach(object => object.draw());
+    ravens = ravens.filter(object => !object.markedForDeletion);
     requestAnimationFrame(animate);
 };
 
