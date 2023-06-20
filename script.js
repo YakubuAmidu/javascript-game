@@ -24,11 +24,15 @@ class Raven {
         this.markedForDeletion = false;
         this.image = new Image();
         this.image.src = 'img/ravens.png';
+        this.frame = 0;
+        this.maxFrame = 4;
     };
 
     update(){
         this.x -= this.directionX;
         if(this.x < 0 - this.width) this.markedForDeletion = true;
+        if(this.frame > this.maxFrame) this.frame = 0;
+        else this.frame++;
     };
 
     draw(){
