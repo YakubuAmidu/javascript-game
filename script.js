@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let score = 0;
-ctx.font = '50px impact';
+ctx.font = '50px impact ';
 
 let timeToNextRaven = 0;
 let ravenInterval = 500;
