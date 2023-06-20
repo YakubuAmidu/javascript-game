@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let score = 0;
-ctx.font = '50px impact ';
+ctx.font = '50px impact';
 
 let timeToNextRaven = 0;
 let ravenInterval = 500;
@@ -55,8 +55,10 @@ class Raven {
 }
 
 function drawScore(){
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = 'black';
     ctx.fillText('Score: ' + score, 50, 75);
+    ctx.fillStyle = 'white';
+    ctx.fillText("Score: " + score, 55, 80);
 }
 
 function animate(timestamp){
