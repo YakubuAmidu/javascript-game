@@ -65,12 +65,34 @@ class Raven {
 
 let explosions = [];
 
-class Explosion{
+class Explosion {
     constructor(x, y, size){
         this.image = new Image();
+        this.image.src = 'img/boom.png';
+        this.spriteWidth = 200;
+        this.spriteHeight = 179;
         this.x = x;
         this.y = y;
         this.size = size;
+        this.frame = 0;
+        this.sound = new Audio();
+        this.sound.src = 'sounds/boom.wav';
+        this.timeSinceLastFrame = 0;
+        this.frameInterval = 200;
+        this.markedForDeletion = false;
+    }
+
+    update(deltatime){
+      if(this.frame === 0) this.sound.play();
+       this.timeSinceLastFrame += deltatime;
+       if(this.timeSinceLastFrame > this.frameInterval){
+        this.frame++;
+        if(this.frame > 5) this.markedForDeletion = true;
+       }
+    }
+
+    draw(){
+        ctx.drawImage(this.image, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.size, this.size);
     }
 }
 
@@ -87,8 +109,11 @@ window.addEventListener('click', function(e){
     const pc = detectPixelColor.data;
     ravens.forEach(object => {
         if(object.randomColors[0] === pc[0] && object.randomColors[1] === pc[1] && object.randomColors[2] == pc[2]){
+            // Collision detected
            object.markedForDeletion = true;
            score++;
+           explosions.push(new Explosion(object.x, object.y, object.width));
+           console.log('Explosions: ', explosions);
         }
     })
 })
@@ -108,9 +133,10 @@ function animate(timestamp){
     };
 
     drawScore();
-    [...ravens].forEach(object => object.update(deltatime));
-    [...ravens].forEach(object => object.draw());
+    [...ravens, ...explosions].forEach(object => object.update(deltatime));
+    [...ravens, ...explosions].forEach(object => object.draw());
     ravens = ravens.filter(object => !object.markedForDeletion);
+    explosions = explosions.filter(object => !object.markedForDeletion);
     requestAnimationFrame(animate);
 };
 
