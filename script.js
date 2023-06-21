@@ -63,6 +63,17 @@ class Raven {
     }
 }
 
+let explosions = [];
+
+class Explosion{
+    constructor(x, y, size){
+        this.image = new Image();
+        this.x = x;
+        this.y = y;
+        this.size = size;
+    }
+}
+
 function drawScore(){
     ctx.fillStyle = 'black';
     ctx.fillText('Score: ' + score, 50, 75);
@@ -95,6 +106,7 @@ function animate(timestamp){
             return a.width - b.width;
         })
     };
+
     drawScore();
     [...ravens].forEach(object => object.update(deltatime));
     [...ravens].forEach(object => object.draw());
