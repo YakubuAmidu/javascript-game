@@ -11,7 +11,7 @@ $color-blue: blue;
 };
 
 body {
-    background-image: linear-gradient(to right bottom, $color-red, $color-green, $color-blue);
+    background-image: linear-gradient(125deg, $color-red, $color-green, $color-blue);
     width: 100vw;
     height: 100vh;
     overflow: hidden;
